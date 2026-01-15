@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>심플 QR 코드 생성기</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f7f6;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 350px;
+        }
+        h2 { color: #333; margin-bottom: 1.5rem; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        button:hover { background-color: #45a049; }
+        #qrcode {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        #qrcode img {
+            padding: 10px;
+            border: 1px solid #eee;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>QR 코드 생성기</h2>
+    <input type="text" id="text-input" placeholder="URL 또는 텍스트 입력">
+    <button onclick="generateQR()">QR 코드 만들기</button>
+    <div id="qrcode"></div>
+</div>
+
+<script>
+    const qrContainer = document.getElementById("qrcode");
+    let qrcode = null;
+
+    function generateQR() {
+        const text = document.getElementById("text-input").value;
+
+        if (!text.trim()) {
+            alert("텍스트나 URL을 입력해주세요!");
+            return;
+        }
+
+        // 기존 QR 코드가 있으면 삭제
+        qrContainer.innerHTML = "";
+
+        // 새로운 QR 코드 생성
+        qrcode = new QRCode(qrContainer, {
+            text: text,
+            width: 200,
+            height: 200,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    }
+</script>
+
+</body>
+</html>
